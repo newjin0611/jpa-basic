@@ -16,20 +16,12 @@ public class Main {
         tx.begin();
 
         try{
-//            Member member = new Member();
-//
-//            member.setId(2L);
-//            member.setName("HelloB");
-//            em.persist(member);
-//            Member findMember = em.find(Member.class, 1L);
-              List<Member> memberList = em.createQuery("select m from Member as m", Member.class)
-                      .setFirstResult(5)
-                      .setMaxResults(10)
-                      .getResultList();
-              for(Member member : memberList){
-                  System.out.println("member.name : " + member.getName());
-              }
-
+            Member member = new Member();
+            member.setId(3L);
+            member.setUsername("C");
+            member.setRoleType(RoleType.GUEST);
+            member.setAge(10);
+            em.persist(member);
 
             tx.commit();
         }catch (Exception e){
