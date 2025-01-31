@@ -16,14 +16,46 @@ public class Main {
         tx.begin();
 
         try{
+            Team team = new Team();
+            team.setName("AA");
+            em.persist(team);
+
             Member member = new Member();
-            member.setUsername("C");
-
-            System.out.println("1 =======================");
+            member.setUsername("aa");
+            member.setTeam(team);
             em.persist(member);
-            System.out.println("member id: " + member.getId());
-            System.out.println("2 =======================");
 
+//            em.flush();
+//            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+
+            System.out.println("findTeam=" + findTeam.getName());
+
+
+            Team newTeam = em.find(Team.class, 4L);
+            findMember.setTeam(newTeam);
+            em.persist(findMember);
+
+
+//            Team team = new Team();
+//            team.setName("teamC");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("C");
+//            member.setTeam(team);
+//            em.persist(member);
+
+//            System.out.println("==============1");
+//
+//            Member findMember = em.find(Member.class, member.getId());
+//            Team findTeam = findMember.getTeam();
+//
+//            System.out.println("==============2");
+//
+//            System.out.println("findTeam = " + findTeam);
             tx.commit();
         }catch (Exception e){
             tx.rollback();

@@ -6,15 +6,23 @@ import javax.persistence.*;
 public class Member {
 
     @Id
-    @SequenceGenerator(
-            name = "MEMBER_SEQ_GENERATOR",
-            sequenceName = "MEMBER_SEQ", initialValue =  50,
-            allocationSize = 10 )
-
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
+    @GeneratedValue
+    @Column(name= "MEMBER_ID")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "USER_NAME")
     private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     public Member() {
     }
