@@ -17,11 +17,12 @@ public class Main {
 
         try{
             Member member = new Member();
-            member.setId(3L);
             member.setUsername("C");
-            member.setRoleType(RoleType.GUEST);
-            member.setAge(10);
+
+            System.out.println("1 =======================");
             em.persist(member);
+            System.out.println("member id: " + member.getId());
+            System.out.println("2 =======================");
 
             tx.commit();
         }catch (Exception e){
