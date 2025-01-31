@@ -16,6 +16,11 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
+    public void chaneTeam(Team team){
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
     public Team getTeam() {
         return team;
     }

@@ -16,46 +16,27 @@ public class Main {
         tx.begin();
 
         try{
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+//            member1.chaneTeam(team); //굳이 양방향 셋팅을 하고 싶다면 Team 에 넣지 말고 연관관계 편의 메서드 사용
+            em.persist(member1);
+
             Team team = new Team();
-            team.setName("AA");
+            team.setName("team1");
+            team.addMember(member1);
             em.persist(team);
 
-            Member member = new Member();
-            member.setUsername("aa");
-            member.setTeam(team);
-            em.persist(member);
-
-//            em.flush();
-//            em.clear();
-
-            Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
-
-            System.out.println("findTeam=" + findTeam.getName());
-
-
-            Team newTeam = em.find(Team.class, 4L);
-            findMember.setTeam(newTeam);
-            em.persist(findMember);
-
-
-//            Team team = new Team();
-//            team.setName("teamC");
-//            em.persist(team);
+            em.flush();
+            em.clear();
 //
-//            Member member = new Member();
-//            member.setUsername("C");
-//            member.setTeam(team);
-//            em.persist(member);
+//            Member findMember = em.find(Member.class, member1.getId());
+//            List<Member> findMembers =
+//                    findMember.getTeam().getMembers();
+//            for(Member member : findMembers ){
+//                System.out.println("findMembers = " + member.getUsername());
+//            }
 
-//            System.out.println("==============1");
-//
-//            Member findMember = em.find(Member.class, member.getId());
-//            Team findTeam = findMember.getTeam();
-//
-//            System.out.println("==============2");
-//
-//            System.out.println("findTeam = " + findTeam);
             tx.commit();
         }catch (Exception e){
             tx.rollback();
